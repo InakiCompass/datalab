@@ -9,8 +9,11 @@ import plotly.graph_objs as go
 import numpy as np
 from dash.dependencies import Input, Output
 
-df = pd.read_csv('https://raw.githubusercontent.com/InakiCompass/datalab/master/SG6.csv',header=[0,1],index_col=[0])#,index_col=0)
-df1 = pd.read_csv('https://raw.githubusercontent.com/InakiCompass/datalab/master/SG6.csv')
+url = 'https://raw.githubusercontent.com/InakiCompass/datalab/master/SG6.csv'
+
+df = pd.read_csv(url,sep=",")
+df = pd.read_csv(url,sep=",",header=[0,1],index_col=[0])#,index_col=0)
+df1 = pd.read_csv(url,sep=",")
 dg = df1.drop(df.index[0])
 
 df.rename(columns={'Unnamed: 3_level_1':'','Unnamed: 4_level_1':' ','Issuer_Country':'  '},inplace=True)
