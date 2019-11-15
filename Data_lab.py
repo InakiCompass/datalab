@@ -9,10 +9,9 @@ import plotly.graph_objs as go
 import numpy as np
 from dash.dependencies import Input, Output
 
+url = 'https://raw.githubusercontent.com/InakiCompass/datalab/master/SG7'
 
-
-
-url = 'https://raw.githubusercontent.com/InakiCompass/datalab/master/SG6'
+LOGO = "https://raw.githubusercontent.com/InakiCompass/datalab/master/blanco.png"
 
 #df = pd.read_csv(url,sep=",")
 df = pd.read_csv(url,sep=",",header=[0,1],index_col=[0])#,index_col=0)
@@ -26,13 +25,34 @@ cols=([{'name':list(c),'id':c[1]} for c in df.columns.values])
 #cols[1].update( {'hideable' : True})
 df.columns=df.columns.droplevel(0)
 
-navbar = dbc.NavbarSimple(
-    
-    brand="Compass Data lab",
-    brand_href="#",
-    color="primary",
-    sticky="center",
+navbar = dbc.Navbar(
+    [
+        html.A(
+            # Use row and col to control vertical alignment of logo / brand
+            dbc.Row(
+                [
+                    dbc.Col(html.Img(src=LOGO, height="50px")),
+                    dbc.Col(dbc.NavbarBrand("", className="ml-2")),
+                ],
+                align="center",
+                no_gutters=True,
+            ),
+            href="http://cgcompass.com/",
+        ),
+        dbc.NavbarToggler(id="navbar-toggler"),
+        
+    ],
+    color="dark",
+    dark=True,
 )
+
+# navbar = dbc.NavbarSimple(
+    
+#     brand="Compass Data lab",
+#     brand_href="#",
+#     color="primary",
+#     sticky="center",
+# )
 
 theme =  {
     'dark': True,
@@ -57,7 +77,8 @@ body = html.Div(
                     options=[{'label': i, 'value': i} for i in available_indicators[1:]],
                     value='All',
                     style={'width': '200px'}
-                    ),
+                    )
+                
                 # dcc.Dropdown(
                 #     id='drop_name',
                 #     options=[{'label': i, 'value': i} for i in available_indicators_name[1:]],
@@ -78,7 +99,8 @@ body = html.Div(
         
         #Tabla
         dbc.Row([
-            dbc.Col(html.Div(" "), width=1),
+            #dbc.Col(html.Div(" "), width=1),
+            dbc.Col(
             dash_table.DataTable(
                 
                 id='datatable-filtering-fe',
@@ -87,7 +109,7 @@ body = html.Div(
                 data=df.to_dict('records'),
                 filter_action="native",
                 merge_duplicate_headers=True,
-                style_cell={'textAlign': 'center','fontSize':12, 'font-family':'sans-serif','padding': '1px', 'width': '40px'},
+                style_cell={'textAlign': 'center','fontSize':12, 'font-family':'sans-serif','padding': '3px'},
                 style_data_conditional=[
                     { 'if': {'column_id':''},
                         'backgroundColor': 'GhostWhite'}, 
@@ -114,8 +136,9 @@ body = html.Div(
                 style_header={'backgroundColor': 'GhostWhite',
                     'fontWeight': 'bold',
                     'border': '1px solid black'},
-                style_table={'width': '1600px', 'maxHeight': '1000px', 'overflowY': 'scroll', 'overflowX': 'scroll','align':'center', 'padding': 40},),
-            html.Div(id='datatable-filter-container'),
+                style_table={'width': '100%', 'maxHeight': '1000px', 'overflowY': 'scroll', 'overflowX': 'scroll','align':'center', 'padding': 40},),
+            html.Div(id='datatable-filter-container')),
+            #dbc.Col(html.Div(" "), width=1)
             
         ])
     ])
@@ -170,6 +193,7 @@ def update_graph1(drop):
                     x=dgr[dgr['Country'] == i]['P/E.2'],
                     y=dgr[dgr['Country'] == i]['ROE.2'],
                     text=dgr[dgr['Country'] == i]['Name'],
+                    
                     mode='markers',
                     opacity=0.7,
                     marker={
@@ -180,7 +204,7 @@ def update_graph1(drop):
                 ) for i in dgr.Country.unique()
             ],
             'layout': go.Layout(
-                xaxis={'type': 'log', 'title': 'P/E'},
+                xaxis={'type': 'log', 'title': 'P/E', 'type': 'linear'},
                 yaxis={'title': 'ROE'},
                 margin={'l': 40, 'b': 50, 't': 50, 'r': 10},
                 legend={'x': 0, 'y': 1},
@@ -216,7 +240,7 @@ def update_graph2(drop):
                 ) for i in dgr.Country.unique()
             ],
             'layout': go.Layout(
-                xaxis={'type': 'log', 'title': 'EV/EBITDA'},
+                xaxis={'type': 'log', 'title': 'EV/EBITDA','type': 'linear'},
                 yaxis={'title': 'ROIC'},
                 margin={'l': 40, 'b': 50, 't': 50, 'r': 10},
                 legend={'x': 0, 'y': 1},
@@ -228,3 +252,4 @@ def update_graph2(drop):
 
 if __name__ == "__main__":
     app.run_server(debug=True)
+
