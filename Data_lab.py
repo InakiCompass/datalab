@@ -9,6 +9,9 @@ import plotly.graph_objs as go
 import numpy as np
 from dash.dependencies import Input, Output
 
+
+server = app.server
+
 url = 'https://raw.githubusercontent.com/InakiCompass/datalab/master/SG6'
 
 #df = pd.read_csv(url,sep=",")
