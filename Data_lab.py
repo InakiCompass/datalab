@@ -18,7 +18,8 @@ dg = df1.drop(df.index[0])
 
 df.rename(columns={'Unnamed: 3_level_1':'','Unnamed: 4_level_1':' ','Issuer_Country':'  '},inplace=True)
 df=round(df,1)
-cols=([{'name':list(c),'id':c[1]} for c in df.columns.values])
+cols=.cols
+#([{'name':list(c),'id':c[1]} for c in df.columns.values])
 #cols[1].update( {'hideable' : True})
 df.columns=df.columns.droplevel(0)
 
