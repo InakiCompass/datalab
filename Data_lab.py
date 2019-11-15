@@ -11,15 +11,15 @@ from dash.dependencies import Input, Output
 
 url = 'https://raw.githubusercontent.com/InakiCompass/datalab/master/SG6'
 
-df = pd.read_csv(url,sep=",")
-#df = pd.read_csv(url,sep=",",header=[0,1],index_col=[0])#,index_col=0)
+#df = pd.read_csv(url,sep=",")
+df = pd.read_csv(url,sep=",",header=[0,1],index_col=[0])#,index_col=0)
 df1 = pd.read_csv(url,sep=",")
+#df1 = pd.read_csv(url,sep=",")
 dg = df1.drop(df.index[0])
 
 df.rename(columns={'Unnamed: 3_level_1':'','Unnamed: 4_level_1':' ','Issuer_Country':'  '},inplace=True)
 df=round(df,1)
-cols=.cols
-#([{'name':list(c),'id':c[1]} for c in df.columns.values])
+cols=([{'name':list(c),'id':c[1]} for c in df.columns.values])
 #cols[1].update( {'hideable' : True})
 df.columns=df.columns.droplevel(0)
 
