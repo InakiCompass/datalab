@@ -1,1 +1,1 @@
-web: gunicorn Data_lab:app
+web: gunicorn Data_lab:server

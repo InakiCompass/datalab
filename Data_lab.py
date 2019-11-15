@@ -10,7 +10,7 @@ import numpy as np
 from dash.dependencies import Input, Output
 
 
-server = app.server
+
 
 url = 'https://raw.githubusercontent.com/InakiCompass/datalab/master/SG6'
 
@@ -121,6 +121,7 @@ body = html.Div(
     ])
 
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
+server = app.server
 app.layout = html.Div([navbar, body])
 
 
