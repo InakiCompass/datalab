@@ -10,7 +10,7 @@ chardet==3.0.4
 chart-studio==1.0.0
 Click==7.0
 
-cryptography==2.1.4
+cryptography==2.3
 cupshelpers==1.0
 dash==1.6.1
 dash-auth==1.2.0
