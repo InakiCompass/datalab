@@ -1,4 +1,5 @@
 import dash
+import dash_auth
 import dash_table
 import pandas as pd
 import flask
@@ -9,9 +10,21 @@ import plotly.graph_objs as go
 import numpy as np
 from dash.dependencies import Input, Output
 
+
 url = 'https://raw.githubusercontent.com/InakiCompass/datalab/master/SG7'
 
 LOGO = "https://raw.githubusercontent.com/InakiCompass/datalab/master/blanco.png"
+
+app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
+
+VALID_USERNAME_PASSWORD_PAIRS = {
+    'hello': 'world'
+}
+
+auth = dash_auth.BasicAuth(
+    app,
+    VALID_USERNAME_PASSWORD_PAIRS
+)
 
 #df = pd.read_csv(url,sep=",")
 df = pd.read_csv(url,sep=",",header=[0,1],index_col=[0])#,index_col=0)
@@ -143,7 +156,7 @@ body = html.Div(
         ])
     ])
 
-app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
+
 server = app.server
 app.layout = html.Div([navbar, body])
 
