@@ -16,7 +16,7 @@ url = 'https://raw.githubusercontent.com/InakiCompass/datalab/master/SG7'
 
 LOGO = "https://raw.githubusercontent.com/InakiCompass/datalab/master/blanco.png"
 
-VALID_USERNAME_PASSWORD_PAIRS = [('123', '123')]
+VALID_USERNAME_PASSWORD_PAIRS = [('datalab', 'compass')]
 
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
