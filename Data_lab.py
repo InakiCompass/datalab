@@ -3,6 +3,7 @@ import dash_auth
 import dash_table
 import pandas as pd
 import flask
+import plotly
 import dash_bootstrap_components as dbc
 import dash_core_components as dcc
 import dash_html_components as html
@@ -15,11 +16,10 @@ url = 'https://raw.githubusercontent.com/InakiCompass/datalab/master/SG7'
 
 LOGO = "https://raw.githubusercontent.com/InakiCompass/datalab/master/blanco.png"
 
+VALID_USERNAME_PASSWORD_PAIRS = [('123', '123')]
+
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
-VALID_USERNAME_PASSWORD_PAIRS = {
-    'hello': 'world'
-}
 
 auth = dash_auth.BasicAuth(
     app,
